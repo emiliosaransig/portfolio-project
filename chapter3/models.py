@@ -48,17 +48,16 @@ class Team(Base):
 
     team_id = Column(Integer, primary_key=True, index=True)
     team_name = Column(String, nullable=False)
-    last_changed_name = Column(Date, nullable=False)
+    last_changed_date = Column(Date, nullable=False)
 
     league_id = Column(Integer, ForeignKey("league.league_id"))
 
-    league = relationship("League", back_populates="team")
+    league = relationship("League", back_populates="teams")
     players = relationship("Player", secondary="team_player", back_populates="teams")
 
 class TeamPlayer(Base):
     __tablename__ = "team_player"
 
-    team_id = Column(Integer, ForeignKey("team.team_id"), primary_key=True, Index=True)
-    player_id = Column(Integer, ForeignKey("player.player_id"), primary_key=True, Index=True)
+    team_id = Column(Integer, ForeignKey("team.team_id"), primary_key=True, index=True)
+    player_id = Column(Integer, ForeignKey("player.player_id"), primary_key=True, index=True)
     last_changed_date = Column(Date, nullable=False)
-
